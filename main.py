@@ -1,10 +1,11 @@
 import os
 import argparse
+import time
 from prompts import system_prompt
 from dotenv import load_dotenv
 from google import genai
-from google.genai import types
-from functions.call_function import available_functions
+from google.genai import types, errors
+from functions.call_function import available_functions, call_function
 
 
 
@@ -47,8 +48,19 @@ def main():
         print(f"Prompt tokens: {prompt_tokens}")
         print(f"Response tokens: {response_tokens}")
     if response.function_calls:
+        list_of_function_results = []
         for function_call in response.function_calls:
-            print(f"Calling function: {function_call.name}({function_call.args})")
+            function_call_result = call_function(function_call, verbose=args.verbose)
+            if not function_call_result.parts:
+                raise Exception("function call returned no parts")
+            if not function_call_result.parts[0].function_response:
+                raise Exception("Part is not a function response")
+            if not function_call_result.parts[0].function_response.response:
+                raise Exception("Function response has no content")
+            list_of_function_results.append(function_call_result.parts[0])
+
+            if args.verbose:
+                print(f"-> {function_call_result.parts[0].function_response.response}")
     else:
         print(response.text)
 

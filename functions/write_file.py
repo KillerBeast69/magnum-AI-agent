@@ -14,7 +14,7 @@ def write_file(working_directory, file_path, content):
         if os.path.isdir(target):
             return f'Error: Cannot write to "{file_path}" as it is a directory'
 
-        os.makedirs(file_path, exist_ok=True)
+        os.makedirs(target.parent, exist_ok=True)
 
         with open(target, 'w') as f:
             f.write(content)
