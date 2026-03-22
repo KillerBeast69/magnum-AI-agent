@@ -28,6 +28,8 @@ For example, I had a buggy calculator app, so I used my agent to fix the code:
 # Calling function: run_python_file
 # Final response:
 # Great! The calculator app now seems to be working correctly. The output shows the expression and the result in a formatted way.
+```
+
 ## Prerequisites
 
 * Python 3.10+ installed
