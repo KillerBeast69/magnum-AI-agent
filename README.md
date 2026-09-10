@@ -49,7 +49,7 @@ This project is an autonomous AI coding agent built around Google's Gemini 2.5 F
 ```bash
 # 1. Clone the repository
 git clone https://github.com/KillerBeast69/magnum-AI-agent.git
-cd ai-agent
+cd magnum-AI-agent
 
 # 2. Install dependencies with uv (recommended)
 uv sync
